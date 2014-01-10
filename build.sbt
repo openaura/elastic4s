@@ -3,7 +3,7 @@ name := "elastic4s"
 
 organization := "com.sksamuel.elastic4s"
 
-version := "0.90.9.0"
+version := "0.90.9.0.oa.1"
 
 scalaVersion := "2.10.3"
 
@@ -13,13 +13,15 @@ publishMavenStyle := true
 
 javacOptions ++= Seq("-source", "1.6", "-target", "1.6")
 
+credentials += Credentials(Path.userHome / ".ivy2" / ".credentials")
+
 publishTo <<= version {
   (v: String) =>
-    val nexus = "https://oss.sonatype.org/"
+    val nexus = "http://nexus.openaura.net/nexus/"
     if (v.trim.endsWith("SNAPSHOT"))
       Some("snapshots" at nexus + "content/repositories/snapshots")
     else
-      Some("releases" at nexus + "service/local/staging/deploy/maven2")
+      Some("releases" at nexus + "content/repositories/releases")
 }
 
 publishArtifact in Test := false
